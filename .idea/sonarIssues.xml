@@ -8,6 +8,66 @@
             <set />
           </value>
         </entry>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/config/AppConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/AdminController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/ManagerController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQReceiver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQReceiverImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQSender.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQSenderImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQSenderIn.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/applicationContext.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/pom.xml">
           <value>
             <set />
@@ -19,6 +79,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/GreeterEJB.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/MyStatelessEJB.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/rabbitmq/RabbitMQReceiverImpl.java">
           <value>
             <set />
           </value>
