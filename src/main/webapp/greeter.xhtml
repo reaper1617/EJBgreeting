@@ -7,6 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>ejb-in-war</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -28,7 +30,72 @@
             </h:commandButton>
         </h:panelGrid>
     </h:form>
+
+    <h:form id="ordersListForm">
+        <h:dataTable value="#{greeter.generateList()}" var="item">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                #{item.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                #{item.description}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+    <h:form id="ordersListForm2">
+        <h:dataTable value="#{greeter.orders}" var="item">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                #{item.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                #{item.description}
+            </h:column>
+        </h:dataTable>
+    </h:form>
 </div>
 
+<script type="text/javascript">
+    // var uri = "ws://" + document.location.host + document.location.pathname +
+    var uri = "ws://localhost:8085/ejbgreeting/myendpoint";
+    var webSocket = new WebSocket(uri);
+    webSocket.onopen = function (ev) {
+        alert("Socket is opened!");
+        $(document).ready(function () {
+            alert("doc ready , sending msg");
+            var msg = {
+                type: "message",
+                text: "World",
+                date: Date.now()
+            };
+            webSocket.send(JSON.stringify(msg));
+            alert("message sent");
+        })
+    };
+    webSocket.onmessage = function (ev) {
+        alert("Socket: on message!");
+        alert(ev.data.toString());
+    };
+    webSocket.onclose = function (ev) {
+        alert("Socket: on close!")
+    };
+
+
+
+</script>
 </body>
+
+
+
 </html>

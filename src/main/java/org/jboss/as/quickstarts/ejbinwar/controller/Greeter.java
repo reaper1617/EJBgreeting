@@ -1,8 +1,10 @@
 package org.jboss.as.quickstarts.ejbinwar.controller;
 
 import com.rabbitmq.client.*;
+import org.jboss.as.quickstarts.ejbinwar.dto.OrderDTO;
 import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJB;
 import org.jboss.as.quickstarts.ejbinwar.ejb.MyStatelessEJB;
+import org.jboss.as.quickstarts.ejbinwar.socket.MyWebSocket;
 
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -10,8 +12,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.websocket.server.ServerEndpointConfig;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 @Named("greeter")
@@ -22,9 +28,12 @@ public class Greeter implements Serializable {
     private static final long serialVersionUID = 1L;
     private final static String QUEUE_NAME = "hello";
 
+
+    /** for rabbitmq **/
     private ConnectionFactory factory;
     private Connection connection;
     private Channel channel;
+
     /**
      * Injected GreeterEJB client
      */
@@ -35,14 +44,22 @@ public class Greeter implements Serializable {
     private MyStatelessEJB myStatelessEJB;
 
 
+//    @EJB
+//    private MyWebSocket myWebSocket;
+
     public Greeter() {
-        init();
+        initRabbitMQListener();
+        //ServerEndpointConfig.Builder.create(MyWebSocket.class, "/myendpoint").build();
     }
 
     /**
      * Stores the response from the call to greeterEJB.sayHello(...)
      */
     private String message;
+
+    /** collection of orders**/
+
+    private List<OrderDTO> orders;
 
     /**
      * Invoke greeterEJB.sayHello(...) and store the message
@@ -62,8 +79,11 @@ public class Greeter implements Serializable {
         return message;
     }
 
+    public List<OrderDTO> getOrders() {
+        return orders;
+    }
 
-    private void init(){
+    private void initRabbitMQListener(){
         factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
@@ -78,6 +98,7 @@ public class Greeter implements Serializable {
                         throws IOException {
                     String msg = new String(body, "UTF-8");
                     message = msg;
+                    orders = generateList();
                    // myStatelessEJB.setStatelessBeanMessage(msg);
                     System.out.println(" [x] Received '" + msg + "'");
                 }
@@ -86,8 +107,20 @@ public class Greeter implements Serializable {
         }
         catch (Exception e){
             e.printStackTrace();
-            init();
+            initRabbitMQListener();
         }
+    }
+
+
+    public List<OrderDTO> generateList(){
+        List<OrderDTO> result = new ArrayList<OrderDTO>();
+
+        int size = new Random().nextInt(10) + 1;
+
+        for(int i = 0; i < size; i++){
+            result.add(new OrderDTO("id", "pNum", "descr","Status"));
+        }
+        return result;
     }
 
 }
