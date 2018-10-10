@@ -32,23 +32,6 @@
     </h:form>
 
     <h:form id="ordersListForm">
-        <h:dataTable value="#{greeter.generateList()}" var="item">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Id"/>
-                </f:facet>
-                #{item.id}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Name"/>
-                </f:facet>
-                #{item.description}
-            </h:column>
-        </h:dataTable>
-    </h:form>
-
-    <h:form id="ordersListForm2">
         <h:dataTable value="#{greeter.orders}" var="item">
             <h:column>
                 <f:facet name="header">
@@ -64,6 +47,39 @@
             </h:column>
         </h:dataTable>
     </h:form>
+
+    <h:form id="statsForm">
+        <h:panelGrid columns="2">
+            <h:outputLabel>Trucks total:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfTrucksTotal}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Trucks free:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfTrucksFree}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Trucks (not ready):</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfTrucksNotReady}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Trucks executing orders:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfTrucksExecutingOrders}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Drivers total:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfDriversTotal}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Drivers free:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfDriversFree}" />
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:outputLabel>Drivers executing orders:</h:outputLabel>
+            <h:outputLabel value="#{greeter.numOfDriversExecutingOrders}" />
+        </h:panelGrid>
+    </h:form>
+
+
 </div>
 
 <script type="text/javascript">
@@ -72,16 +88,16 @@
     var webSocket = new WebSocket(uri);
     webSocket.onopen = function (ev) {
         alert("Socket is opened!");
-        $(document).ready(function () {
-            alert("doc ready , sending msg");
-            var msg = {
-                type: "message",
-                text: "World",
-                date: Date.now()
-            };
-            webSocket.send(JSON.stringify(msg));
-            alert("message sent");
-        })
+        // $(document).ready(function () {
+        //     alert("doc ready , sending msg");
+        //     var msg = {
+        //         type: "message",
+        //         text: "World",
+        //         date: Date.now()
+        //     };
+        //     webSocket.send(JSON.stringify(msg));
+        //     alert("message sent");
+        // })
     };
     webSocket.onmessage = function (ev) {
         alert("Socket: on message!");

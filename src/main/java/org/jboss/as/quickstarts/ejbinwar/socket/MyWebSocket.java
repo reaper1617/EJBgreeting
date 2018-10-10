@@ -18,21 +18,28 @@ import java.util.Set;
 public class MyWebSocket {
 
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MyWebSocket.class);
+    public static Set<Session> getPeers() {
+        return peers;
+    }
 
     @OnOpen
     public void onOpen(Session peer){
         System.out.println("OnOpen-server side");
+        LOGGER.info("MyWebSocket: in onOpen method");
         peers.add(peer);
     }
 
     @OnClose
     public  void onClose(Session peer){
+        LOGGER.info("MyWebSocket: in onMClose method");
         System.out.println("OnClose-server side");
         peers.remove(peer);
     }
 
     @OnMessage
     public void onMessage(Session session, String msg){
+        LOGGER.info("MyWebSocket: in onMessage method");
         try{
             System.out.println("MyWebSocket: on message!");
             session.getBasicRemote().sendText("From MyWebSocket with love!");

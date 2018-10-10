@@ -15,6 +15,8 @@ public class OrderDTO implements Serializable {
     private String personalNumber;
     private String description;
     private String status;
+    private String assignedTruckId;
+    private String[] cargosInOrder;
 
     public OrderDTO() {
     }
