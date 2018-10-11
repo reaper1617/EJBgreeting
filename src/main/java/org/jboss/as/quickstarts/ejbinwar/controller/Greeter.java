@@ -1,28 +1,36 @@
 package org.jboss.as.quickstarts.ejbinwar.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rabbitmq.client.*;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import org.jboss.as.quickstarts.ejbinwar.dto.OrderDTO;
+import org.jboss.as.quickstarts.ejbinwar.dto.StatsDTO;
 import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJB;
 import org.jboss.as.quickstarts.ejbinwar.ejb.MyStatelessEJB;
+
+import org.jboss.as.quickstarts.ejbinwar.enums.UpdateMessageType;
 import org.jboss.as.quickstarts.ejbinwar.socket.MyWebSocket;
 
 import javax.ejb.EJB;
-import javax.ejb.MessageDriven;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.websocket.server.ServerEndpointConfig;
+import javax.websocket.Session;
+
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Type;
+import java.util.*;
 
 
 @Named("greeter")
 @SessionScoped
 public class Greeter implements Serializable {
+
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(Greeter.class);
 
     /** Default value included to remove warning. **/
     private static final long serialVersionUID = 1L;
@@ -34,56 +42,105 @@ public class Greeter implements Serializable {
     private Connection connection;
     private Channel channel;
 
-    /**
-     * Injected GreeterEJB client
-     */
+
     @EJB
     private GreeterEJB greeterEJB;
-
     @EJB
     private MyStatelessEJB myStatelessEJB;
 
-
-//    @EJB
-//    private MyWebSocket myWebSocket;
-
-    public Greeter() {
-        initRabbitMQListener();
-        //ServerEndpointConfig.Builder.create(MyWebSocket.class, "/myendpoint").build();
-    }
-
-    /**
-     * Stores the response from the call to greeterEJB.sayHello(...)
-     */
     private String message;
 
-    /** collection of orders**/
-
+    private static final int NUMBER_OF_ORDERS = 10;
     private List<OrderDTO> orders;
 
-    /**
-     * Invoke greeterEJB.sayHello(...) and store the message
-     *
-     * @param name The name of the person to be greeted
-     */
+
+//    private List<Integer> currentStatsValues;
+    // for statistics
+    private int numOfTrucksTotal;
+    private int numOfTrucksFree;
+    private int numOfTrucksNotReady;
+    private int numOfTrucksExecutingOrders;
+    private int numOfDriversTotal;
+    private int numOfDriversFree;
+    private int numOfDriversExecutingOrders;
+
+    public Greeter() {
+        LOGGER.info("Init" + this.getClass());
+        initRabbitMQListener();
+        String rest = initOrdersListFromWebService();
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<List<OrderDTO>>(){}.getType();
+        orders = gson.fromJson(rest, collectionType);
+
+        String statsFromWS = initStatsFieldsFromWebService();
+        String stats = statsFromWS.substring(1, statsFromWS.length()-1);
+        System.out.println("Stats string: " + stats);
+//        System.out.println("REST Stats from WS: " + statsFromWS);
+       String[] strs = stats.split(",");
+
+       try {
+           numOfTrucksTotal = Integer.parseInt(strs[0]);
+           numOfTrucksFree = Integer.parseInt(strs[1]);
+           numOfTrucksNotReady = Integer.parseInt(strs[2]);
+           numOfTrucksExecutingOrders = Integer.parseInt(strs[3]);
+           numOfDriversTotal = Integer.parseInt(strs[4]);
+           numOfDriversFree = Integer.parseInt(strs[5]);
+           numOfDriversExecutingOrders = Integer.parseInt(strs[6]);
+       }
+       catch (Exception e){
+           System.out.println("In except!");
+           e.printStackTrace();
+       }
+//        currentStatsValues = statisticBean.getAsIntegerList();
+
+
+//        Gson gson2 = new Gson();
+//        gson2.fromJson()
+    }
+
+    public int getNumOfTrucksTotal() {
+        return numOfTrucksTotal;
+    }
+
+    public int getNumOfTrucksFree() {
+        return numOfTrucksFree;
+    }
+
+    public int getNumOfTrucksNotReady() {
+        return numOfTrucksNotReady;
+    }
+
+    public int getNumOfTrucksExecutingOrders() {
+        return numOfTrucksExecutingOrders;
+    }
+
+    public int getNumOfDriversTotal() {
+        return numOfDriversTotal;
+    }
+
+    public int getNumOfDriversFree() {
+        return numOfDriversFree;
+    }
+
+    public int getNumOfDriversExecutingOrders() {
+        return numOfDriversExecutingOrders;
+    }
+
     public void setName(String name) {
         message = greeterEJB.sayHello(name) + myStatelessEJB.getMessage();
     }
 
-    /**
-     * Get the greeting message, customized with the name of the person to be greeted.
-     *
-     * @return message. The greeting message.
-     */
     public String getMessage() {
         return message;
     }
+
 
     public List<OrderDTO> getOrders() {
         return orders;
     }
 
     private void initRabbitMQListener(){
+        LOGGER.info("Class:" + this.getClass() + " metod: initRabbitMQListener() invoked.");
         factory = new ConnectionFactory();
         factory.setHost("localhost");
         try {
@@ -96,14 +153,24 @@ public class Greeter implements Serializable {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
                         throws IOException {
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method");
                     String msg = new String(body, "UTF-8");
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method " + " received message: " + msg );
                     message = msg;
-                    orders = generateList();
+                    //orders = generateList();
+                    String messageToPeers = getProcessMessageResult(msg);
+                    if (messageToPeers == null) messageToPeers = "{\"message\":\"null\"}";
+                    Set<Session> peers = MyWebSocket.getPeers();
+                    for(Session peer: peers){
+                        peer.getBasicRemote().sendText(messageToPeers);
+                    }
                    // myStatelessEJB.setStatelessBeanMessage(msg);
-                    System.out.println(" [x] Received '" + msg + "'");
+                    //todo: send command: refresh table with orders or refresh fields with statistics
+                    LOGGER.info("Class:" + this.getClass() + " out from handleDelivery method");
                 }
             };
         channel.basicConsume(QUEUE_NAME, true, consumer);
+        LOGGER.info("Class:" + this.getClass() + " out from initRabbitMQListener() method");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -112,15 +179,232 @@ public class Greeter implements Serializable {
     }
 
 
-    public List<OrderDTO> generateList(){
-        List<OrderDTO> result = new ArrayList<OrderDTO>();
+//    public List<OrderDTO> generateList(){
+//        List<OrderDTO> result = new ArrayList<OrderDTO>();
+//        int size = new Random().nextInt(10) + 1;
+//        for(int i = 0; i < size; i++){
+//            result.add(new OrderDTO("id", "pNum", "descr","Status"));
+//        }
+//        return result;
+//    }
 
-        int size = new Random().nextInt(10) + 1;
-
-        for(int i = 0; i < size; i++){
-            result.add(new OrderDTO("id", "pNum", "descr","Status"));
+    private String getProcessMessageResult(String message){
+        LOGGER.info("Class:" + this.getClass() + " metod: getProcessMessageResult() invoked.");
+        if (message == null || message.length()==0) return null;
+        if (message.contains(UpdateMessageType.ORDER_CREATED.toString())){
+            LOGGER.info("Class:" + this.getClass() + " metod: getProcessMessageResult() " + "message processing: " + message);
+            // process: add new order into table
+            refreshStatsFieldsFromWebService();
+            return addNewOrderToList(message);
         }
+        if (message.contains(UpdateMessageType.ORDER_EDITED.toString())){
+            //process: find by id? if found - refresh and repaint
+            refreshStatsFieldsFromWebService();
+            return changeOrderDataInList(message);
+        }
+        if (message.contains(UpdateMessageType.ORDER_DELETED.toString())){
+            //process: ?? add status: deleted , and repaint
+            refreshStatsFieldsFromWebService();
+            return deleteOrderDataInList(message);
+        }
+        if (message.contains(UpdateMessageType.DRIVER_CREATED.toString())
+        || message.contains(UpdateMessageType.DRIVER_EDITED.toString())
+        || message.contains(UpdateMessageType.DRIVER_DELETED.toString())
+                ||message.contains(UpdateMessageType.TRUCK_CREATED.toString())
+                || message.contains(UpdateMessageType.TRUCK_EDITED.toString())
+                || message.contains(UpdateMessageType.TRUCK_DELETED.toString())){
+            return refreshStatsFields(message);
+        }
+        if (message.contains(UpdateMessageType.USER_CREATED.toString())
+                || message.contains(UpdateMessageType.USER_EDITED.toString())
+                || message.contains(UpdateMessageType.USER_DELETED.toString())){
+            //todo:: define if user is driver
+            return refreshStatsFields(message);
+        }
+        LOGGER.info("Class:" + this.getClass() + " out from getProcessMessageResult() method.");
+        return null;
+    }
+
+    // todo: may be not String but boolean
+    private String addNewOrderToList(String messageFromServer){
+        LOGGER.info("Class:" + this.getClass() + " metod: addNewOrderToList() invoked.");
+        if (messageFromServer == null || messageFromServer.length() == 0) return null;
+        String jsonString = messageFromServer.substring(14);
+        LOGGER.info("Class:" + this.getClass() + " metod: addNewOrderToList() " + " jsonString processing: " + jsonString);
+        Gson gson = new Gson();
+        OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        if (newOrderDTO == null) return null;
+        orders.add(0,newOrderDTO);
+        if (orders.size() > NUMBER_OF_ORDERS){
+            while (orders.size()>NUMBER_OF_ORDERS){
+                orders.remove(orders.size()-1);
+            }
+        }
+
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_CREATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from addNewOrderToList() method, result:" + result);
         return result;
     }
+
+    // todo: may be not String but boolean
+    private String changeOrderDataInList(String messageFromServer){
+        LOGGER.info("Class:" + this.getClass() + " metod: changeOrderDataInList() invoked.");
+        if (messageFromServer == null || messageFromServer.length() == 0) return null;
+        String jsonString = messageFromServer.substring(13);
+        LOGGER.info("Class:" + this.getClass() + " metod: changeOrderDataInList() " + " jsonString processing: " + jsonString);
+        Gson gson = new Gson();
+        OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        if (newOrderDTO == null) return null;
+        int pos = 0;
+        boolean found = false;
+        for(OrderDTO dto: orders){
+            if (dto.getId().equals(newOrderDTO.getId())){
+                found = true;
+                break;
+            }
+            pos++;
+        }
+        if (found){
+            orders.remove(pos);
+            orders.add(pos, newOrderDTO);
+        }
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_UPDATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from changeOrderDataInList() method, result:" + result);
+        return result;
+    }
+
+    // todo: may be not String but boolean
+    private String deleteOrderDataInList(String messageFromServer){
+        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() invoked.");
+        if (messageFromServer == null || messageFromServer.length() == 0) return null;
+        String jsonString = messageFromServer.substring(14);
+        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " jsonString processing: " + jsonString);
+        Gson gson = new Gson();
+        OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " newOrderDTO" + newOrderDTO);
+        if (newOrderDTO == null) {
+            LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method: orderDTO is null");
+            return null;
+        }
+        int pos = 0;
+        boolean found = false;
+        if (orders == null){
+            LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method: orders is null");
+            return null;
+        }
+        for(OrderDTO dto: orders){
+            if (dto.getId().equals(newOrderDTO.getId())){
+                found = true;
+                break;
+            }
+            pos++;
+        }
+        if (found){
+            orders.get(pos).setStatus("DELETED");
+        }
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_DELETED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method, result:" + result);
+        return result;
+    }
+
+    private String refreshStatsFields(String messageFromServer){
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() invoked.");
+        if (messageFromServer == null || messageFromServer.length() == 0) return null;
+        int firstSpacePos = messageFromServer.indexOf(' ');
+        String jsonString = messageFromServer.substring(firstSpacePos+1);
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() " + " jsonString processing: " + jsonString);
+        System.out.println("refreshStatsFields, jsonString=" + jsonString);
+        Gson gson = new Gson();
+        StatsDTO statsDTO = gson.fromJson(jsonString, StatsDTO.class);
+        numOfTrucksTotal = Integer.parseInt(statsDTO.getTrucksTotal());
+        numOfTrucksFree = Integer.parseInt(statsDTO.getTrucksFree());
+        numOfTrucksNotReady = Integer.parseInt(statsDTO.getTrucksNotReady());
+        numOfTrucksExecutingOrders = Integer.parseInt(statsDTO.getTrucksExecOrders());
+        numOfDriversTotal = Integer.parseInt(statsDTO.getDriversTotal());
+        numOfDriversFree = Integer.parseInt(statsDTO.getDriversFree());
+        numOfDriversExecutingOrders = Integer.parseInt(statsDTO.getDriversExecOrders());
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"STATS_UPDATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from refreshStatsFields() method, result:" + result);
+        return result;
+    }
+
+    private String refreshStatsFieldsFromWebService(){
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService() invoked.");
+        Client client = Client.create();
+        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/stats");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if (response.getStatus()!=200){
+            System.out.println("failed");
+        }
+        String statsFromWS = response.getEntity(String.class);
+        String stats = statsFromWS.substring(1, statsFromWS.length()-1);
+        String[] strs = stats.split(",");
+        try {
+            numOfTrucksTotal = Integer.parseInt(strs[0]);
+            numOfTrucksFree = Integer.parseInt(strs[1]);
+            numOfTrucksNotReady = Integer.parseInt(strs[2]);
+            numOfTrucksExecutingOrders = Integer.parseInt(strs[3]);
+            numOfDriversTotal = Integer.parseInt(strs[4]);
+            numOfDriversFree = Integer.parseInt(strs[5]);
+            numOfDriversExecutingOrders = Integer.parseInt(strs[6]);
+        }
+        catch (Exception e){
+            LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method: catched exception " + e.getMessage());
+            e.printStackTrace();
+        }
+        LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method");
+        return "{\"action\":\"STATS_UPDATED\"}";
+    }
+
+
+    private String initStatsFieldsFromWebService(){
+        Client client = Client.create();
+        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/stats");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if (response.getStatus()!=200){
+            System.out.println("failed");
+        }
+        String output = response.getEntity(String.class);
+        System.out.println("OUTPUT STRING = " + output);
+        return output;
+    }
+
+
+
+    private String  initOrdersListFromWebService() {
+        Client client = Client.create();
+        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/orders");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if (response.getStatus()!=200){
+            System.out.println("failed");
+        }
+        String output = response.getEntity(String.class);
+        System.out.println("OUTPUT STRING = " + output);
+        return output;
+    }
+
+
+
+//    private List<OrderDTO> initOrdersListFromWebServiceAsList(){
+//        ClientConfig clientConfig = new DefaultClientConfig();
+//        //clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+//        Client client = Client.create(clientConfig);
+//        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/orders");
+//        WebResource.Builder builder = webResource.accept(MediaType.APPLICATION_JSON).header("content-type", MediaType.APPLICATION_JSON);
+//        ClientResponse response = builder.get(ClientResponse.class);
+//        if (response.getStatus() != 200){
+//            // bad
+//            System.out.println("Error 200");
+//            return null;
+//        }
+//        GenericType<List<OrderDTO>> generic = new GenericType<List<OrderDTO>>(){
+//        };
+//        List<OrderDTO> list = response.getEntity(generic);
+//        return list;
+//    }
 
 }

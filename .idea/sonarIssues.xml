@@ -13,6 +13,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/db/a6f3dcda-6660-4ddf-82c3-9a4e0b45a6ba/console.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/WorldWideLogistics-master/src/main/java/com/gerasimchuk/webservices/MainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/pom.xml">
           <value>
             <set />
@@ -29,6 +44,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/ManagerController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/UserController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/OrderDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/entities/Order.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/enums/UpdateMessageType.java">
           <value>
             <set />
           </value>
@@ -63,7 +98,242 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/DriverRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/DriverRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/OrderRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/OrderRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/TruckRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/TruckRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/OrderServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/StatisticServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/TruckServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/UserServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/OrderService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/StatisticService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/TruckService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/UserService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/JSONconvertable.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/MessageConstructor.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/MessageConstructorImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/ReturnValuesContainer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/StatisticInformationContainer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/StatisticInformationContainerImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/webservices/MainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/applicationContext.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/addnewcitypage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/addnewroutepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/addnewuserpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/adminmainpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/changecitypage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/changeroutepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/orderchangepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/reassigntrucktoorderpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/userchangepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/driver/drivermainpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/errors/error404.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/errors/uncaughtexception.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/failure.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/addnewcargopage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/addnewdriverpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/addneworderpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/addnewtruckpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/assigntrucktoorderpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/cargochangepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/driverchangepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/managermainpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/truckchangepage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/success.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/web.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/error.jsp">
           <value>
             <set />
           </value>
@@ -83,12 +353,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/dto/StatisticBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/dto/StatisticsDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/dto/StatsDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/GreeterEJB.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/MyStatelessEJB.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/StatisticBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/ejb/StatisticBeanImpl.java">
           <value>
             <set />
           </value>
@@ -103,7 +398,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/log4j.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/config/log4j.properties">
           <value>
             <set />
           </value>
@@ -124,6 +429,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/index.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../wwlclient/src/main/java/com/gerasimchuk/controllers/MainController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../wwlclient/src/main/webapp/WEB-INF/views/mainpage.jsp">
           <value>
             <set />
           </value>
