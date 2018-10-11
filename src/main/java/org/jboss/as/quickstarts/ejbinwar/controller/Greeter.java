@@ -159,9 +159,10 @@ public class Greeter implements Serializable {
                     message = msg;
                     //orders = generateList();
                     String messageToPeers = getProcessMessageResult(msg);
+                    if (messageToPeers == null) messageToPeers = "{\"message\":\"null\"}";
                     Set<Session> peers = MyWebSocket.getPeers();
                     for(Session peer: peers){
-                        peer.getBasicRemote().sendText("Sending msg to peer! " + messageToPeers);
+                        peer.getBasicRemote().sendText(messageToPeers);
                     }
                    // myStatelessEJB.setStatelessBeanMessage(msg);
                     //todo: send command: refresh table with orders or refresh fields with statistics
@@ -193,14 +194,17 @@ public class Greeter implements Serializable {
         if (message.contains(UpdateMessageType.ORDER_CREATED.toString())){
             LOGGER.info("Class:" + this.getClass() + " metod: getProcessMessageResult() " + "message processing: " + message);
             // process: add new order into table
+            refreshStatsFieldsFromWebService();
             return addNewOrderToList(message);
         }
         if (message.contains(UpdateMessageType.ORDER_EDITED.toString())){
             //process: find by id? if found - refresh and repaint
+            refreshStatsFieldsFromWebService();
             return changeOrderDataInList(message);
         }
         if (message.contains(UpdateMessageType.ORDER_DELETED.toString())){
             //process: ?? add status: deleted , and repaint
+            refreshStatsFieldsFromWebService();
             return deleteOrderDataInList(message);
         }
         if (message.contains(UpdateMessageType.DRIVER_CREATED.toString())
@@ -209,14 +213,13 @@ public class Greeter implements Serializable {
                 ||message.contains(UpdateMessageType.TRUCK_CREATED.toString())
                 || message.contains(UpdateMessageType.TRUCK_EDITED.toString())
                 || message.contains(UpdateMessageType.TRUCK_DELETED.toString())){
-            // process: update statistictable
-            return refreshStatFields(message);
+            return refreshStatsFields(message);
         }
         if (message.contains(UpdateMessageType.USER_CREATED.toString())
                 || message.contains(UpdateMessageType.USER_EDITED.toString())
                 || message.contains(UpdateMessageType.USER_DELETED.toString())){
-            //process: define if user is driver
-            return refreshStatFields(message);
+            //todo:: define if user is driver
+            return refreshStatsFields(message);
         }
         LOGGER.info("Class:" + this.getClass() + " out from getProcessMessageResult() method.");
         return null;
@@ -230,14 +233,18 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: addNewOrderToList() " + " jsonString processing: " + jsonString);
         Gson gson = new Gson();
         OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        if (newOrderDTO == null) return null;
         orders.add(0,newOrderDTO);
         if (orders.size() > NUMBER_OF_ORDERS){
             while (orders.size()>NUMBER_OF_ORDERS){
                 orders.remove(orders.size()-1);
             }
         }
-        LOGGER.info("Class:" + this.getClass() + " out from addNewOrderToList() method");
-        return jsonString;
+
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_CREATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from addNewOrderToList() method, result:" + result);
+        return result;
     }
 
     // todo: may be not String but boolean
@@ -248,6 +255,7 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: changeOrderDataInList() " + " jsonString processing: " + jsonString);
         Gson gson = new Gson();
         OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        if (newOrderDTO == null) return null;
         int pos = 0;
         boolean found = false;
         for(OrderDTO dto: orders){
@@ -261,8 +269,10 @@ public class Greeter implements Serializable {
             orders.remove(pos);
             orders.add(pos, newOrderDTO);
         }
-        LOGGER.info("Class:" + this.getClass() + " out from changeOrderDataInList() method.");
-        return jsonString;
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_UPDATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from changeOrderDataInList() method, result:" + result);
+        return result;
     }
 
     // todo: may be not String but boolean
@@ -273,8 +283,17 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " jsonString processing: " + jsonString);
         Gson gson = new Gson();
         OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
+        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " newOrderDTO" + newOrderDTO);
+        if (newOrderDTO == null) {
+            LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method: orderDTO is null");
+            return null;
+        }
         int pos = 0;
         boolean found = false;
+        if (orders == null){
+            LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method: orders is null");
+            return null;
+        }
         for(OrderDTO dto: orders){
             if (dto.getId().equals(newOrderDTO.getId())){
                 found = true;
@@ -285,16 +304,18 @@ public class Greeter implements Serializable {
         if (found){
             orders.get(pos).setStatus("DELETED");
         }
-        LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method.");
-        return jsonString;
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"ORDER_DELETED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method, result:" + result);
+        return result;
     }
 
-    private String refreshStatFields(String messageFromServer){
-        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFields() invoked.");
+    private String refreshStatsFields(String messageFromServer){
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() invoked.");
         if (messageFromServer == null || messageFromServer.length() == 0) return null;
         int firstSpacePos = messageFromServer.indexOf(' ');
         String jsonString = messageFromServer.substring(firstSpacePos+1);
-        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFields() " + " jsonString processing: " + jsonString);
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() " + " jsonString processing: " + jsonString);
         System.out.println("refreshStatsFields, jsonString=" + jsonString);
         Gson gson = new Gson();
         StatsDTO statsDTO = gson.fromJson(jsonString, StatsDTO.class);
@@ -305,9 +326,40 @@ public class Greeter implements Serializable {
         numOfDriversTotal = Integer.parseInt(statsDTO.getDriversTotal());
         numOfDriversFree = Integer.parseInt(statsDTO.getDriversFree());
         numOfDriversExecutingOrders = Integer.parseInt(statsDTO.getDriversExecOrders());
-        LOGGER.info("Class:" + this.getClass() + " out from refreshStatFields() method.");
-        return jsonString;
+        jsonString = jsonString.substring(1);
+        String result = "{\"action\":\"STATS_UPDATED\"," + jsonString;
+        LOGGER.info("Class:" + this.getClass() + " out from refreshStatsFields() method, result:" + result);
+        return result;
     }
+
+    private String refreshStatsFieldsFromWebService(){
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService() invoked.");
+        Client client = Client.create();
+        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/stats");
+        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if (response.getStatus()!=200){
+            System.out.println("failed");
+        }
+        String statsFromWS = response.getEntity(String.class);
+        String stats = statsFromWS.substring(1, statsFromWS.length()-1);
+        String[] strs = stats.split(",");
+        try {
+            numOfTrucksTotal = Integer.parseInt(strs[0]);
+            numOfTrucksFree = Integer.parseInt(strs[1]);
+            numOfTrucksNotReady = Integer.parseInt(strs[2]);
+            numOfTrucksExecutingOrders = Integer.parseInt(strs[3]);
+            numOfDriversTotal = Integer.parseInt(strs[4]);
+            numOfDriversFree = Integer.parseInt(strs[5]);
+            numOfDriversExecutingOrders = Integer.parseInt(strs[6]);
+        }
+        catch (Exception e){
+            LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method: catched exception " + e.getMessage());
+            e.printStackTrace();
+        }
+        LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method");
+        return "{\"action\":\"STATS_UPDATED\"}";
+    }
+
 
     private String initStatsFieldsFromWebService(){
         Client client = Client.create();
@@ -320,6 +372,8 @@ public class Greeter implements Serializable {
         System.out.println("OUTPUT STRING = " + output);
         return output;
     }
+
+
 
     private String  initOrdersListFromWebService() {
         Client client = Client.create();

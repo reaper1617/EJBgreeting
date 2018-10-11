@@ -14,18 +14,28 @@ public class OrderDTO implements Serializable {
     private String id;
     private String personalNumber;
     private String description;
+    private String date;
     private String status;
-    private String assignedTruckId;
-    private String[] cargosInOrder;
+//    private String assignedTruckId;
+//    private String[] cargosInOrder;
 
     public OrderDTO() {
     }
 
-    public OrderDTO(String id, String personalNumber, String description, String status) {
+    public OrderDTO(String id, String personalNumber, String description, String date, String status) {
         this.id = id;
         this.personalNumber = personalNumber;
         this.description = description;
+        this.date = date;
         this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getId() {
