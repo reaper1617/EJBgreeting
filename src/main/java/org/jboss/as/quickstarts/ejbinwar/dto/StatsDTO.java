@@ -1,70 +1,80 @@
 package org.jboss.as.quickstarts.ejbinwar.dto;
 
 public class StatsDTO {
-    private String trucksTotal;
-    private String trucksFree;
-    private String trucksNotReady;
-    private String trucksExecOrders;
-    private String driversTotal;
-    private String driversFree;
-    private String driversExecOrders;
+    private int numOfTrucksTotal;
+    private int numOfTrucksFree;
+    private int numOfTrucksNotReady;
+    private int numOfTrucksExecutingOrders;
+    private int numOfDriversTotal;
+    private int numOfDriversFree;
+    private int numOfDriversExecutingOrders;
 
     public StatsDTO() {
     }
 
-    public String getTrucksTotal() {
-        return trucksTotal;
+    public StatsDTO(int numOfTrucksTotal, int numOfTrucksFree, int numOfTrucksNotReady, int numOfTrucksExecutingOrders, int numOfDriversTotal, int numOfDriversFree, int numOfDriversExecutingOrders) {
+        this.numOfTrucksTotal = numOfTrucksTotal;
+        this.numOfTrucksFree = numOfTrucksFree;
+        this.numOfTrucksNotReady = numOfTrucksNotReady;
+        this.numOfTrucksExecutingOrders = numOfTrucksExecutingOrders;
+        this.numOfDriversTotal = numOfDriversTotal;
+        this.numOfDriversFree = numOfDriversFree;
+        this.numOfDriversExecutingOrders = numOfDriversExecutingOrders;
     }
 
-    public void setTrucksTotal(String trucksTotal) {
-        this.trucksTotal = trucksTotal;
+    public int getNumOfTrucksTotal() {
+        return numOfTrucksTotal;
     }
 
-    public String getTrucksFree() {
-        return trucksFree;
+    public void setNumOfTrucksTotal(int numOfTrucksTotal) {
+        this.numOfTrucksTotal = numOfTrucksTotal;
     }
 
-    public void setTrucksFree(String trucksFree) {
-        this.trucksFree = trucksFree;
+    public int getNumOfTrucksFree() {
+        return numOfTrucksFree;
     }
 
-    public String getTrucksNotReady() {
-        return trucksNotReady;
+    public void setNumOfTrucksFree(int numOfTrucksFree) {
+        this.numOfTrucksFree = numOfTrucksFree;
     }
 
-    public void setTrucksNotReady(String trucksNotReady) {
-        this.trucksNotReady = trucksNotReady;
+    public int getNumOfTrucksNotReady() {
+        return numOfTrucksNotReady;
     }
 
-    public String getTrucksExecOrders() {
-        return trucksExecOrders;
+    public void setNumOfTrucksNotReady(int numOfTrucksNotReady) {
+        this.numOfTrucksNotReady = numOfTrucksNotReady;
     }
 
-    public void setTrucksExecOrders(String trucksExecOrders) {
-        this.trucksExecOrders = trucksExecOrders;
+    public int getNumOfTrucksExecutingOrders() {
+        return numOfTrucksExecutingOrders;
     }
 
-    public String getDriversTotal() {
-        return driversTotal;
+    public void setNumOfTrucksExecutingOrders(int numOfTrucksExecutingOrders) {
+        this.numOfTrucksExecutingOrders = numOfTrucksExecutingOrders;
     }
 
-    public void setDriversTotal(String driversTotal) {
-        this.driversTotal = driversTotal;
+    public int getNumOfDriversTotal() {
+        return numOfDriversTotal;
     }
 
-    public String getDriversFree() {
-        return driversFree;
+    public void setNumOfDriversTotal(int numOfDriversTotal) {
+        this.numOfDriversTotal = numOfDriversTotal;
     }
 
-    public void setDriversFree(String driversFree) {
-        this.driversFree = driversFree;
+    public int getNumOfDriversFree() {
+        return numOfDriversFree;
     }
 
-    public String getDriversExecOrders() {
-        return driversExecOrders;
+    public void setNumOfDriversFree(int numOfDriversFree) {
+        this.numOfDriversFree = numOfDriversFree;
     }
 
-    public void setDriversExecOrders(String driversExecOrders) {
-        this.driversExecOrders = driversExecOrders;
+    public int getNumOfDriversExecutingOrders() {
+        return numOfDriversExecutingOrders;
+    }
+
+    public void setNumOfDriversExecutingOrders(int numOfDriversExecutingOrders) {
+        this.numOfDriversExecutingOrders = numOfDriversExecutingOrders;
     }
 }
