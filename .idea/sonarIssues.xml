@@ -13,6 +13,11 @@
             <set />
           </value>
         </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell">
           <value>
             <set />
@@ -38,6 +43,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/constants/WWLConstants.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/AdminController.java">
           <value>
             <set />
@@ -48,12 +58,92 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/RestController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/controllers/UserController.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/CargoToDTOConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/CargoToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/CityToDTOConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/CityToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/OrderToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/RouteToDTOConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/RouteToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/TruckToDTOConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/TruckToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/UserToDTOConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/converters/UserToDTOConverterImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/CityDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/OrderDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/StatsDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/TruckDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/UserDTO.java">
           <value>
             <set />
           </value>
@@ -98,6 +188,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/CargoRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/CargoRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/CityRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/CityRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/DriverRepository.java">
           <value>
             <set />
@@ -118,6 +228,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/RouteRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/RouteRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/TruckRepository.java">
           <value>
             <set />
@@ -128,7 +248,47 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/UserRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/UserRepositoryImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/CargoServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/CityServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/CustomUserDetailsService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/DriverServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/OrderServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/RouteServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/impls/SecurityServiceImpl.java">
           <value>
             <set />
           </value>
@@ -148,7 +308,27 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/CargoService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/CityService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/OrderService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/RouteService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/services/interfaces/SecurityService.java">
           <value>
             <set />
           </value>
@@ -183,6 +363,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/OrderWithRoute.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/ReturnValuesContainer.java">
           <value>
             <set />
@@ -199,6 +384,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/webservices/MainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/log4j.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/testConf.fxml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/testConf.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/testconfig.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/testconfig2.xml">
           <value>
             <set />
           </value>
@@ -229,6 +439,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/adminmainpage.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/adminmainpagegoogle.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/admin/adminmainpagepgntd.jsp">
           <value>
             <set />
           </value>
@@ -274,6 +494,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/failure.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/adminheader.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/driverheader.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/managerheader.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/neutralheader.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/login.jsp">
           <value>
             <set />
           </value>
@@ -334,6 +579,76 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/error.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/css/adminmainpage.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/adminmainpagepgntd.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/googlemaps.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/managermainpage.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/CargoServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/CityServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/CustomUserDetailsServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/DriverServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/OrderServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/RouteServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/SecurityServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/StatisticServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/TruckServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/UserServiceImplTest.java">
           <value>
             <set />
           </value>

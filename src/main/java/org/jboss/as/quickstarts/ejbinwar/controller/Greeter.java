@@ -48,7 +48,7 @@ public class Greeter implements Serializable {
     @EJB
     private MyStatelessEJB myStatelessEJB;
 
-    private String message;
+    private String message = "First init";
 
     private static final int NUMBER_OF_ORDERS = 10;
     private List<OrderDTO> orders;
@@ -56,13 +56,15 @@ public class Greeter implements Serializable {
 
 //    private List<Integer> currentStatsValues;
     // for statistics
-    private int numOfTrucksTotal;
-    private int numOfTrucksFree;
-    private int numOfTrucksNotReady;
-    private int numOfTrucksExecutingOrders;
-    private int numOfDriversTotal;
-    private int numOfDriversFree;
-    private int numOfDriversExecutingOrders;
+//    private int numOfTrucksTotal;
+//    private int numOfTrucksFree;
+//    private int numOfTrucksNotReady;
+//    private int numOfTrucksExecutingOrders;
+//    private int numOfDriversTotal;
+//    private int numOfDriversFree;
+//    private int numOfDriversExecutingOrders;
+    private StatsDTO statsDTO;
+
 
     public Greeter() {
         LOGGER.info("Init" + this.getClass());
@@ -71,60 +73,10 @@ public class Greeter implements Serializable {
         Gson gson = new Gson();
         Type collectionType = new TypeToken<List<OrderDTO>>(){}.getType();
         orders = gson.fromJson(rest, collectionType);
-
         String statsFromWS = initStatsFieldsFromWebService();
-        String stats = statsFromWS.substring(1, statsFromWS.length()-1);
-        System.out.println("Stats string: " + stats);
-//        System.out.println("REST Stats from WS: " + statsFromWS);
-       String[] strs = stats.split(",");
-
-       try {
-           numOfTrucksTotal = Integer.parseInt(strs[0]);
-           numOfTrucksFree = Integer.parseInt(strs[1]);
-           numOfTrucksNotReady = Integer.parseInt(strs[2]);
-           numOfTrucksExecutingOrders = Integer.parseInt(strs[3]);
-           numOfDriversTotal = Integer.parseInt(strs[4]);
-           numOfDriversFree = Integer.parseInt(strs[5]);
-           numOfDriversExecutingOrders = Integer.parseInt(strs[6]);
-       }
-       catch (Exception e){
-           System.out.println("In except!");
-           e.printStackTrace();
-       }
-//        currentStatsValues = statisticBean.getAsIntegerList();
-
-
-//        Gson gson2 = new Gson();
-//        gson2.fromJson()
+        statsDTO = gson.fromJson(statsFromWS, StatsDTO.class);
     }
 
-    public int getNumOfTrucksTotal() {
-        return numOfTrucksTotal;
-    }
-
-    public int getNumOfTrucksFree() {
-        return numOfTrucksFree;
-    }
-
-    public int getNumOfTrucksNotReady() {
-        return numOfTrucksNotReady;
-    }
-
-    public int getNumOfTrucksExecutingOrders() {
-        return numOfTrucksExecutingOrders;
-    }
-
-    public int getNumOfDriversTotal() {
-        return numOfDriversTotal;
-    }
-
-    public int getNumOfDriversFree() {
-        return numOfDriversFree;
-    }
-
-    public int getNumOfDriversExecutingOrders() {
-        return numOfDriversExecutingOrders;
-    }
 
     public void setName(String name) {
         message = greeterEJB.sayHello(name) + myStatelessEJB.getMessage();
@@ -137,6 +89,10 @@ public class Greeter implements Serializable {
 
     public List<OrderDTO> getOrders() {
         return orders;
+    }
+
+    public StatsDTO getStatsDTO() {
+        return statsDTO;
     }
 
     private void initRabbitMQListener(){
@@ -318,14 +274,14 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() " + " jsonString processing: " + jsonString);
         System.out.println("refreshStatsFields, jsonString=" + jsonString);
         Gson gson = new Gson();
-        StatsDTO statsDTO = gson.fromJson(jsonString, StatsDTO.class);
-        numOfTrucksTotal = Integer.parseInt(statsDTO.getTrucksTotal());
-        numOfTrucksFree = Integer.parseInt(statsDTO.getTrucksFree());
-        numOfTrucksNotReady = Integer.parseInt(statsDTO.getTrucksNotReady());
-        numOfTrucksExecutingOrders = Integer.parseInt(statsDTO.getTrucksExecOrders());
-        numOfDriversTotal = Integer.parseInt(statsDTO.getDriversTotal());
-        numOfDriversFree = Integer.parseInt(statsDTO.getDriversFree());
-        numOfDriversExecutingOrders = Integer.parseInt(statsDTO.getDriversExecOrders());
+        StatsDTO statsFromJson = gson.fromJson(jsonString, StatsDTO.class);
+        statsDTO.setNumOfTrucksTotal(statsFromJson.getNumOfTrucksTotal());
+        statsDTO.setNumOfTrucksFree(statsFromJson.getNumOfTrucksFree());
+        statsDTO.setNumOfTrucksNotReady(statsFromJson.getNumOfTrucksNotReady());
+        statsDTO.setNumOfTrucksExecutingOrders(statsFromJson.getNumOfTrucksExecutingOrders());
+        statsDTO.setNumOfDriversTotal(statsFromJson.getNumOfDriversTotal());
+        statsDTO.setNumOfDriversFree(statsFromJson.getNumOfDriversFree());
+        statsDTO.setNumOfDriversExecutingOrders(statsFromJson.getNumOfDriversExecutingOrders());
         jsonString = jsonString.substring(1);
         String result = "{\"action\":\"STATS_UPDATED\"," + jsonString;
         LOGGER.info("Class:" + this.getClass() + " out from refreshStatsFields() method, result:" + result);
@@ -335,27 +291,21 @@ public class Greeter implements Serializable {
     private String refreshStatsFieldsFromWebService(){
         LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService() invoked.");
         Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/stats");
+        WebResource webResource = client.resource("http://localhost:8080/stats");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         if (response.getStatus()!=200){
             System.out.println("failed");
         }
         String statsFromWS = response.getEntity(String.class);
-        String stats = statsFromWS.substring(1, statsFromWS.length()-1);
-        String[] strs = stats.split(",");
-        try {
-            numOfTrucksTotal = Integer.parseInt(strs[0]);
-            numOfTrucksFree = Integer.parseInt(strs[1]);
-            numOfTrucksNotReady = Integer.parseInt(strs[2]);
-            numOfTrucksExecutingOrders = Integer.parseInt(strs[3]);
-            numOfDriversTotal = Integer.parseInt(strs[4]);
-            numOfDriversFree = Integer.parseInt(strs[5]);
-            numOfDriversExecutingOrders = Integer.parseInt(strs[6]);
-        }
-        catch (Exception e){
-            LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method: catched exception " + e.getMessage());
-            e.printStackTrace();
-        }
+        Gson gson = new Gson();
+        StatsDTO statsFromJson = gson.fromJson(statsFromWS, StatsDTO.class);
+        statsDTO.setNumOfTrucksTotal(statsFromJson.getNumOfTrucksTotal());
+        statsDTO.setNumOfTrucksFree(statsFromJson.getNumOfTrucksFree());
+        statsDTO.setNumOfTrucksNotReady(statsFromJson.getNumOfTrucksNotReady());
+        statsDTO.setNumOfTrucksExecutingOrders(statsFromJson.getNumOfTrucksExecutingOrders());
+        statsDTO.setNumOfDriversTotal(statsFromJson.getNumOfDriversTotal());
+        statsDTO.setNumOfDriversFree(statsFromJson.getNumOfDriversFree());
+        statsDTO.setNumOfDriversExecutingOrders(statsFromJson.getNumOfDriversExecutingOrders());
         LOGGER.info("Class:" + this.getClass() + " out from refreshStatFieldsFromWebService() method");
         return "{\"action\":\"STATS_UPDATED\"}";
     }
@@ -363,7 +313,7 @@ public class Greeter implements Serializable {
 
     private String initStatsFieldsFromWebService(){
         Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/stats");
+        WebResource webResource = client.resource("http://localhost:8080/stats");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         if (response.getStatus()!=200){
             System.out.println("failed");
@@ -377,7 +327,7 @@ public class Greeter implements Serializable {
 
     private String  initOrdersListFromWebService() {
         Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/orders");
+        WebResource webResource = client.resource("http://localhost:8080/orders");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         if (response.getStatus()!=200){
             System.out.println("failed");
@@ -386,25 +336,5 @@ public class Greeter implements Serializable {
         System.out.println("OUTPUT STRING = " + output);
         return output;
     }
-
-
-
-//    private List<OrderDTO> initOrdersListFromWebServiceAsList(){
-//        ClientConfig clientConfig = new DefaultClientConfig();
-//        //clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-//        Client client = Client.create(clientConfig);
-//        WebResource webResource = client.resource("http://localhost:8085/worldwidelogistics/rest/mainservice/orders");
-//        WebResource.Builder builder = webResource.accept(MediaType.APPLICATION_JSON).header("content-type", MediaType.APPLICATION_JSON);
-//        ClientResponse response = builder.get(ClientResponse.class);
-//        if (response.getStatus() != 200){
-//            // bad
-//            System.out.println("Error 200");
-//            return null;
-//        }
-//        GenericType<List<OrderDTO>> generic = new GenericType<List<OrderDTO>>(){
-//        };
-//        List<OrderDTO> list = response.getEntity(generic);
-//        return list;
-//    }
 
 }
