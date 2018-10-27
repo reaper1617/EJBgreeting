@@ -7,11 +7,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class MyStatelessEJB {
 
-    private static String statelessBeanMessage = "statelessBeanMsg";
-
-
 
     public String getMessage(){
+        String statelessBeanMessage = "statelessBeanMsg";
         return statelessBeanMessage;
     }
 }
