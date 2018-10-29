@@ -144,7 +144,7 @@
                     <port>9995</port>
                     <username>maxon</username>
                     <password>maxon</password>
-                    <name>${project.artifactId}</name>
+                    <name>ejbgreeting.war</name>
                 </configuration>
             </plugin>
         </plugins>

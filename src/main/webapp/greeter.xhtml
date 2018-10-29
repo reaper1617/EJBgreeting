@@ -12,6 +12,16 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+    <style type="text/css">
+
+        .table-row-names{
+            width: 400px;
+        }
+
+        .table-row-vals{
+            width: 400px;
+        }
+    </style>
 
 </head>
 
@@ -25,33 +35,33 @@
     </div>
 
     <div id="container">
-
+        <div align="left">
         <h:form id="ordersListForm">
             <br></br>
             <br></br>
-            <h1 style="color: #005cbf; font-size: 36px">Last orders:</h1>
-            <h:dataTable styleClass="table table-bordered table-active table-hover table-text" value="#{greeter.orders}" var="item">
+            <h1 style="color: #005cbf; font-size: 36px; margin: 30px">Last orders</h1>
+            <h:dataTable styleClass="table table-bordered table-active table-hover table-condensed" style="margin: 30px 30px 30px 30px; width: 1200px" value="#{greeter.orders}" var="item">
                 <h:column>
                     <f:facet name="header">
-                        <p align="center"><h:outputText styleClass="header-table-text" value="Personal number"/></p>
+                        <p align="center"><h:outputText style="width: 100px;" value="Personal number"/></p>
                     </f:facet>
                     <p align="center" class="row-text">#{item.id}</p>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <p align="center"> <h:outputText styleClass="header-table-text" value="Description"/></p>
+                        <p align="center"> <h:outputText style="width: 150px;"  value="Description"/></p>
                     </f:facet>
                     <p align="center" class="row-text">#{item.description}</p>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <p align="center"><h:outputText styleClass="header-table-text" value="Date/Time"/></p>
+                        <p align="center"><h:outputText style="width: 150px;"  value="Date/Time"/></p>
                     </f:facet>
                     <p align="center" class="row-text">#{item.date}</p>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <p align="center"><h:outputText styleClass="header-table-text" value="Status"/></p>
+                        <p align="center"><h:outputText style="width: 150px;"  value="Status"/></p>
                     </f:facet>
                     <p align="center" class="row-text">#{item.status}</p>
                 </h:column>
@@ -60,51 +70,61 @@
                              action="#{greeter.getOrders}">
             </h:commandButton>
         </h:form>
+        </div>
     </div>
-    <div align="center">
+
+
+        <div align="right">
+            <h1 style="color: #005cbf; font-size: 36px;margin: 30px 30px 30px 30px">Stats</h1>
+            <h:form id="statsForm">
+                <table class="table table-bordered table-active table-hover " style="margin: 30px 30px 30px 30px;width: 800px">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-row-names" align="left">Trucks total:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfTrucksTotal}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Trucks free:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfTrucksFree}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Trucks not ready:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfTrucksNotReady}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Trucks executing orders:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfTrucksExecutingOrders}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Drivers total:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfDriversTotal}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Drivers free:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfDriversFree}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-row-names" align="left">Drivers executing orders:</td>
+                            <td class="table-row-vals" align="right">#{greeter.statsDTO.numOfDriversExecutingOrders}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h:commandButton style="display:none" id="statsUpdate" value="statsUpdate"
+                                 action="#{greeter.getStatsDTO}">
+                </h:commandButton>
+            </h:form>
+        </div>
         <br></br>
         <br></br>
-        <h1 style="color: #005cbf; font-size: 36px">Stats:</h1>
-        <h:form id="statsForm">
-            <h:panelGrid columns="2" >
-                <h:outputLabel styleClass="stats-text">Trucks total:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfTrucksTotal}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Trucks free:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfTrucksFree}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Trucks (not ready):</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfTrucksNotReady}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Trucks executing orders:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfTrucksExecutingOrders}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Drivers total:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfDriversTotal}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Drivers free:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfDriversFree}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
-                <h:outputLabel styleClass="stats-text">Drivers executing orders:</h:outputLabel>
-                <h:outputLabel styleClass="stats-val" value="#{greeter.statsDTO.numOfDriversExecutingOrders}" />
-            </h:panelGrid>
-            <h:commandButton style="display:none" id="statsUpdate" value="statsUpdate"
-                             action="#{greeter.getStatsDTO}">
-            </h:commandButton>
-        </h:form>
         <!--<h:form id="response">-->
             <!--<h:panelGrid columns="2">-->
                 <!--<h:outputLabel styleClass="last-action-text">Last message from server:</h:outputLabel>-->
                 <!--<h:outputLabel styleClass="last-action-val" value="#{greeter.message}" />-->
             <!--</h:panelGrid>-->
         <!--</h:form>-->
-    </div>
+
     <div class = "container-fluid ">
         <nav class="nav nav-tabs bg-dark navbar-dark fixed-bottom">
             <a class="navbar-brand" href="#">WWL Client</a>
@@ -115,34 +135,41 @@
 
 <script type="text/javascript">
     // var uri = "ws://" + document.location.host + document.location.pathname +
-    var uri = "ws://localhost:8085/ejbgreeting/myendpoint";
-    var webSocket = new WebSocket(uri);
 
-    webSocket.onerror = function (ev) {
-      webSocket = new WebSocket(uri);
-    };
+       var uri = "ws://localhost:8085/ejbgreeting/myendpoint";
+       var webSocket = new WebSocket(uri);
 
-    webSocket.onopen = function (ev) {
-        // alert("Socket is opened!");
+       webSocket.onerror = function (ev) {
+           alert("On error!");
+           webSocket = new WebSocket(uri);
+       };
 
-    };
-    webSocket.onmessage = function (ev) {
-        // alert("Socket: on message!");
-        // alert("received data:" + ev.data.toString());
-        var parsed = JSON.parse(ev.data.toString());
-        // alert("parsed:" + parsed);
-        if (parsed.action === 'ORDER_CREATED' || parsed.action === 'ORDER_UPDATED' || parsed.action === 'ORDER_DELETED'){
-            // alert("action=" + parsed.action);
-            document.getElementById('ordersListForm:tableUpdate').click();
-        }
-        if (parsed.action === 'STATS_UPDATED'){
-            // alert("action=" + parsed.action);
-            document.getElementById('statsForm:statsUpdate').click();
-        }
-    };
-    webSocket.onclose = function (ev) {
-        // alert("Socket: on close!")
-    };
+       webSocket.onopen = function (ev) {
+           alert("Socket is opened!");
+           var respData = {status: 'OK'};
+           var respDataString = JSON.stringify(respData);
+           webSocket.send(respDataString);
+       };
+       webSocket.onmessage = function (ev) {
+           alert("Socket: on message!");
+           alert("received data:" + ev.data.toString());
+           var parsed = JSON.parse(ev.data.toString());
+           // alert("parsed:" + parsed);
+           if (parsed.action === 'ORDER_CREATED' || parsed.action === 'ORDER_UPDATED' || parsed.action === 'ORDER_DELETED'){
+               // alert("action=" + parsed.action);
+               document.getElementById('ordersListForm:tableUpdate').click();
+               var respData = {status: 'OK'};
+               var respDataString = JSON.stringify(respData);
+               webSocket.send(respDataString);
+           }
+           if (parsed.action === 'STATS_UPDATED'){
+               // alert("action=" + parsed.action);
+               document.getElementById('statsForm:statsUpdate').click();
+           }
+       };
+       webSocket.onclose = function (ev) {
+           alert("Socket: on close!")
+       };
 
 
 

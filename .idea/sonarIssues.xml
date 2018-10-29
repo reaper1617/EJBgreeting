@@ -33,6 +33,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$USER_HOME$/Downloads/seleniumForWWL/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/seleniumForWWL/src/main/java/com/gerasimchuk/selenium/SeleniumScenario.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/pom.xml">
           <value>
             <set />
@@ -408,7 +418,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/validators/DTOValidatorImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/webservices/MainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/resources/appContextForTests.xml">
           <value>
             <set />
           </value>
@@ -553,6 +573,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/loginerror.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/manager/addnewcargopage.jsp">
           <value>
             <set />
@@ -623,6 +648,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/drivermainpage.js">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/googlemaps.js">
           <value>
             <set />
@@ -649,6 +679,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/DriverServiceImplTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/test/java/com/gerasimchuk/services/impls/MockitoTestImpl.java">
           <value>
             <set />
           </value>
@@ -739,6 +774,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/MyWebSocket.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/MyWebSocketImpl.java">
           <value>
             <set />
           </value>
