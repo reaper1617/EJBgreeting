@@ -1,24 +1,19 @@
 package org.jboss.as.quickstarts.ejbinwar.socket;
 
 
-import javax.ejb.Stateless;
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.enterprise.context.ApplicationScoped;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Stateless
+@ApplicationScoped
 @ServerEndpoint("/myendpoint")
 public class MyWebSocket {
 
-    private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MyWebSocket.class);
+    private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     public static Set<Session> getPeers() {
         return peers;
     }
@@ -42,11 +37,17 @@ public class MyWebSocket {
         LOGGER.info("MyWebSocket: in onMessage method");
         try{
             System.out.println("MyWebSocket: on message!");
-            session.getBasicRemote().sendText("From MyWebSocket with love!");
+            LOGGER.info("Class:" + this.getClass() + " method: onMessage, message =  " + msg);
+            //session.getBasicRemote().sendText("From MyWebSocket with love!");
         }
-        catch (IOException e){
+        catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @OnError
+    public void onError(Throwable t){
+        LOGGER.error("Class:" + this.getClass() + " method: onError!" + t.getLocalizedMessage());
     }
 //
 //    @OnMessage

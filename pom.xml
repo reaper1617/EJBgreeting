@@ -28,6 +28,14 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/org.wildfly.plugins/wildfly-maven-plugin -->
+        <dependency>
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>1.2.2.Final</version>
+        </dependency>
+
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -127,6 +135,19 @@
 
     <build>
         <!-- Set the name of the WAR, used as the context root when the app is deployed -->
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <hostname>localhost</hostname>
+                    <port>9995</port>
+                    <username>maxon</username>
+                    <password>maxon</password>
+                    <name>ejbgreeting.war</name>
+                </configuration>
+            </plugin>
+        </plugins>
         <finalName>${project.artifactId}</finalName>
     </build>
 </project>

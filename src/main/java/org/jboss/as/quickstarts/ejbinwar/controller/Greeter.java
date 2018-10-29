@@ -9,16 +9,19 @@ import com.sun.jersey.api.client.WebResource;
 import org.jboss.as.quickstarts.ejbinwar.dto.OrderDTO;
 import org.jboss.as.quickstarts.ejbinwar.dto.StatsDTO;
 import org.jboss.as.quickstarts.ejbinwar.ejb.GreeterEJB;
-import org.jboss.as.quickstarts.ejbinwar.ejb.MyStatelessEJB;
 
 import org.jboss.as.quickstarts.ejbinwar.enums.UpdateMessageType;
 import org.jboss.as.quickstarts.ejbinwar.socket.MyWebSocket;
 
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.websocket.Session;
+import javax.websocket.*;
 
+import javax.websocket.server.ServerEndpoint;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.Serializable;
@@ -31,6 +34,7 @@ import java.util.*;
 public class Greeter implements Serializable {
 
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(Greeter.class);
+
 
     /** Default value included to remove warning. **/
     private static final long serialVersionUID = 1L;
@@ -45,13 +49,19 @@ public class Greeter implements Serializable {
 
     @EJB
     private GreeterEJB greeterEJB;
-    @EJB
-    private MyStatelessEJB myStatelessEJB;
+
+
 
     private String message = "First init";
 
+    private static final String STATS_RESOURCE_URL = "http://localhost:8080/worldwidelogistics/stats";
+    private static final String ORDERS_RESOURCE_URL = "http://localhost:8080/worldwidelogistics/orders";
+
+
     private static final int NUMBER_OF_ORDERS = 10;
     private List<OrderDTO> orders;
+
+
 
 
 //    private List<Integer> currentStatsValues;
@@ -66,10 +76,24 @@ public class Greeter implements Serializable {
     private StatsDTO statsDTO;
 
 
-    public Greeter() {
-        LOGGER.info("Init" + this.getClass());
+//    public Greeter() {
+//        LOGGER.info("Init" + this.getClass());
+//        initRabbitMQListener();
+//        String rest = initOrdersListFromWebService();
+//        orders = new ArrayList<OrderDTO>();
+//        Gson gson = new Gson();
+//        Type collectionType = new TypeToken<List<OrderDTO>>(){}.getType();
+//        orders = gson.fromJson(rest, collectionType);
+//        String statsFromWS = initStatsFieldsFromWebService();
+//        statsDTO = gson.fromJson(statsFromWS, StatsDTO.class);
+//    }
+
+    @PostConstruct
+    private void init(){
+        LOGGER.info("Init " + this.getClass());
         initRabbitMQListener();
         String rest = initOrdersListFromWebService();
+        orders = new ArrayList<OrderDTO>();
         Gson gson = new Gson();
         Type collectionType = new TypeToken<List<OrderDTO>>(){}.getType();
         orders = gson.fromJson(rest, collectionType);
@@ -77,9 +101,17 @@ public class Greeter implements Serializable {
         statsDTO = gson.fromJson(statsFromWS, StatsDTO.class);
     }
 
+    @PreDestroy
+    private void preDestroy(){
+        try {
+            connection.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setName(String name) {
-        message = greeterEJB.sayHello(name) + myStatelessEJB.getMessage();
+        message = greeterEJB.sayHello(name) ;
     }
 
     public String getMessage() {
@@ -116,10 +148,15 @@ public class Greeter implements Serializable {
                     //orders = generateList();
                     String messageToPeers = getProcessMessageResult(msg);
                     if (messageToPeers == null) messageToPeers = "{\"message\":\"null\"}";
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method, Message to peers: " + messageToPeers);
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method, sending message to peers...");
                     Set<Session> peers = MyWebSocket.getPeers();
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method, peers: " + peers);
                     for(Session peer: peers){
+                        LOGGER.info("Class:" + this.getClass() + " in handleDelivery method, sending message to peer: " + peer);
                         peer.getBasicRemote().sendText(messageToPeers);
                     }
+                    LOGGER.info("Class:" + this.getClass() + " in handleDelivery method, message sent to all peers: ");
                    // myStatelessEJB.setStatelessBeanMessage(msg);
                     //todo: send command: refresh table with orders or refresh fields with statistics
                     LOGGER.info("Class:" + this.getClass() + " out from handleDelivery method");
@@ -239,7 +276,7 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " jsonString processing: " + jsonString);
         Gson gson = new Gson();
         OrderDTO newOrderDTO = gson.fromJson(jsonString, OrderDTO.class);
-        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " newOrderDTO" + newOrderDTO);
+        LOGGER.info("Class:" + this.getClass() + " metod: deleteOrderDataInList() " + " newOrderDTO " + newOrderDTO);
         if (newOrderDTO == null) {
             LOGGER.info("Class:" + this.getClass() + " out from deleteOrderDataInList() method: orderDTO is null");
             return null;
@@ -274,14 +311,15 @@ public class Greeter implements Serializable {
         LOGGER.info("Class:" + this.getClass() + " metod: refreshStatsFields() " + " jsonString processing: " + jsonString);
         System.out.println("refreshStatsFields, jsonString=" + jsonString);
         Gson gson = new Gson();
-        StatsDTO statsFromJson = gson.fromJson(jsonString, StatsDTO.class);
-        statsDTO.setNumOfTrucksTotal(statsFromJson.getNumOfTrucksTotal());
-        statsDTO.setNumOfTrucksFree(statsFromJson.getNumOfTrucksFree());
-        statsDTO.setNumOfTrucksNotReady(statsFromJson.getNumOfTrucksNotReady());
-        statsDTO.setNumOfTrucksExecutingOrders(statsFromJson.getNumOfTrucksExecutingOrders());
-        statsDTO.setNumOfDriversTotal(statsFromJson.getNumOfDriversTotal());
-        statsDTO.setNumOfDriversFree(statsFromJson.getNumOfDriversFree());
-        statsDTO.setNumOfDriversExecutingOrders(statsFromJson.getNumOfDriversExecutingOrders());
+//        StatsDTO statsFromJson = gson.fromJson(jsonString, StatsDTO.class);
+//        statsDTO.setNumOfTrucksTotal(statsFromJson.getNumOfTrucksTotal());
+//        statsDTO.setNumOfTrucksFree(statsFromJson.getNumOfTrucksFree());
+//        statsDTO.setNumOfTrucksNotReady(statsFromJson.getNumOfTrucksNotReady());
+//        statsDTO.setNumOfTrucksExecutingOrders(statsFromJson.getNumOfTrucksExecutingOrders());
+//        statsDTO.setNumOfDriversTotal(statsFromJson.getNumOfDriversTotal());
+//        statsDTO.setNumOfDriversFree(statsFromJson.getNumOfDriversFree());
+//        statsDTO.setNumOfDriversExecutingOrders(statsFromJson.getNumOfDriversExecutingOrders());
+        refreshStatsFieldsFromWebService();
         jsonString = jsonString.substring(1);
         String result = "{\"action\":\"STATS_UPDATED\"," + jsonString;
         LOGGER.info("Class:" + this.getClass() + " out from refreshStatsFields() method, result:" + result);
@@ -291,7 +329,7 @@ public class Greeter implements Serializable {
     private String refreshStatsFieldsFromWebService(){
         LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService() invoked.");
         Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8080/stats");
+        WebResource webResource = client.resource("http://localhost:8080/worldwidelogistics/stats");
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         if (response.getStatus()!=200){
             System.out.println("failed");
@@ -312,22 +350,18 @@ public class Greeter implements Serializable {
 
 
     private String initStatsFieldsFromWebService(){
-        Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8080/stats");
-        ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
-        if (response.getStatus()!=200){
-            System.out.println("failed");
-        }
-        String output = response.getEntity(String.class);
-        System.out.println("OUTPUT STRING = " + output);
-        return output;
+        return getDataFromWebService(STATS_RESOURCE_URL);
     }
 
 
 
     private String  initOrdersListFromWebService() {
+        return getDataFromWebService(ORDERS_RESOURCE_URL);
+    }
+
+    private String getDataFromWebService(String ordersResourceUrl) {
         Client client = Client.create();
-        WebResource webResource = client.resource("http://localhost:8080/orders");
+        WebResource webResource = client.resource(ordersResourceUrl);
         ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         if (response.getStatus()!=200){
             System.out.println("failed");
