@@ -17,6 +17,7 @@ import org.jboss.as.quickstarts.ejbinwar.socket.MyWebSocket;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.ejb.Singleton;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.websocket.*;
@@ -30,7 +31,8 @@ import java.util.*;
 
 
 @Named("greeter")
-@SessionScoped
+//@SessionScoped
+@Singleton
 public class Greeter implements Serializable {
 
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(Greeter.class);
@@ -334,9 +336,12 @@ public class Greeter implements Serializable {
         if (response.getStatus()!=200){
             System.out.println("failed");
         }
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService(), server responce status = " + response.getStatus());
         String statsFromWS = response.getEntity(String.class);
+        LOGGER.info("Class:" + this.getClass() + " metod: refreshStatFieldsFromWebService(), statsFromWebService = " + statsFromWS);
         Gson gson = new Gson();
         StatsDTO statsFromJson = gson.fromJson(statsFromWS, StatsDTO.class);
+        statsDTO = new StatsDTO();
         statsDTO.setNumOfTrucksTotal(statsFromJson.getNumOfTrucksTotal());
         statsDTO.setNumOfTrucksFree(statsFromJson.getNumOfTrucksFree());
         statsDTO.setNumOfTrucksNotReady(statsFromJson.getNumOfTrucksNotReady());

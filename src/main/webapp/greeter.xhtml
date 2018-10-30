@@ -35,12 +35,12 @@
     </div>
 
     <div id="container">
-        <div align="left">
+        <div align="center">
         <h:form id="ordersListForm">
             <br></br>
             <br></br>
             <h1 style="color: #005cbf; font-size: 36px; margin: 30px">Last orders</h1>
-            <h:dataTable styleClass="table table-bordered table-active table-hover table-condensed" style="margin: 30px 30px 30px 30px; width: 1200px" value="#{greeter.orders}" var="item">
+            <h:dataTable styleClass="table table-bordered table-active table-hover" style="margin: 30px 30px 30px 30px; width: 1200px" value="#{greeter.orders}" var="item">
                 <h:column>
                     <f:facet name="header">
                         <p align="center"><h:outputText style="width: 100px;" value="Personal number"/></p>
@@ -74,7 +74,7 @@
     </div>
 
 
-        <div align="right">
+        <div align="center">
             <h1 style="color: #005cbf; font-size: 36px;margin: 30px 30px 30px 30px">Stats</h1>
             <h:form id="statsForm">
                 <table class="table table-bordered table-active table-hover " style="margin: 30px 30px 30px 30px;width: 800px">
@@ -140,19 +140,19 @@
        var webSocket = new WebSocket(uri);
 
        webSocket.onerror = function (ev) {
-           alert("On error!");
+           // alert("On error!");
            webSocket = new WebSocket(uri);
        };
 
        webSocket.onopen = function (ev) {
-           alert("Socket is opened!");
+           // alert("Socket is opened!");
            var respData = {status: 'OK'};
            var respDataString = JSON.stringify(respData);
            webSocket.send(respDataString);
        };
        webSocket.onmessage = function (ev) {
-           alert("Socket: on message!");
-           alert("received data:" + ev.data.toString());
+           // alert("Socket: on message!");
+           // alert("received data:" + ev.data.toString());
            var parsed = JSON.parse(ev.data.toString());
            // alert("parsed:" + parsed);
            if (parsed.action === 'ORDER_CREATED' || parsed.action === 'ORDER_UPDATED' || parsed.action === 'ORDER_DELETED'){
@@ -168,7 +168,7 @@
            }
        };
        webSocket.onclose = function (ev) {
-           alert("Socket: on close!")
+           // alert("Socket: on close!")
        };
 
 
