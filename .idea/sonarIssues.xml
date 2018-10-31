@@ -138,7 +138,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/AdminDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/CityDTO.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/dto/DriverDTO.java">
           <value>
             <set />
           </value>
@@ -214,6 +224,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/rabbit/RabbitMQSenderIn.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/repositories/AdminRepositoryImpl.java">
           <value>
             <set />
           </value>
@@ -383,6 +398,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/DateParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/JSONconvertable.java">
           <value>
             <set />
@@ -399,6 +419,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/OrderWithRoute.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/PersonalNumberGenerator.java">
           <value>
             <set />
           </value>
@@ -558,6 +583,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/footer.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/WEB-INF/views/general/managerheader.jsp">
           <value>
             <set />
@@ -638,7 +668,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/logout.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/css/adminmainpage.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/addnewuserpage.js">
           <value>
             <set />
           </value>
@@ -659,6 +699,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/managermainpage.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/managermainpagesearchfunc.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/webapp/resources/web/js/ordercreatefunc.js">
           <value>
             <set />
           </value>
@@ -768,6 +818,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/enums/UpdateMessageType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/rabbitmq/RabbitMQReceiverImpl.java">
           <value>
             <set />
@@ -779,6 +834,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/MyWebSocketImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/WebSocketObserver.java">
           <value>
             <set />
           </value>
