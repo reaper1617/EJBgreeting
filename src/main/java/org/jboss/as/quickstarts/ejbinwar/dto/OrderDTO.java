@@ -119,8 +119,6 @@ public class OrderDTO implements Serializable {
         this.description = description;
     }
 
-
-
     public String getStatus() {
         return status;
     }

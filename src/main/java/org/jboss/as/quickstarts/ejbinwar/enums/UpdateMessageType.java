@@ -32,7 +32,7 @@ public enum UpdateMessageType {
 
     TRUCK_FIELDS_UPDATED,
 
-    /** error messages will be here**/
+    /** error messages **/
     // todo: add error messages
 
     // orders

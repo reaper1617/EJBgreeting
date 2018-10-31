@@ -398,6 +398,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/DateParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/JSONconvertable.java">
           <value>
             <set />
@@ -414,6 +419,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/OrderWithRoute.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../WWLnewproject/src/main/java/com/gerasimchuk/utils/PersonalNumberGenerator.java">
           <value>
             <set />
           </value>
@@ -808,6 +818,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/enums/UpdateMessageType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/rabbitmq/RabbitMQReceiverImpl.java">
           <value>
             <set />
@@ -819,6 +834,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/MyWebSocketImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/org/jboss/as/quickstarts/ejbinwar/socket/WebSocketObserver.java">
           <value>
             <set />
           </value>
